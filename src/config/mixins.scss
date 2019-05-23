@@ -1,0 +1,9 @@
+@mixin title {
+  font-family: $open-sans;
+  font-size: $title;
+}
+
+@mixin subtitle {
+  font-family: $raleway;
+  font-size: $subtitle;
+}

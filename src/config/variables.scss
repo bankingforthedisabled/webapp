@@ -1,6 +1,22 @@
+//Font Families
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway&display=swap');
+$open-sans: 'Open Sans', sans-serif;
+$raleway: 'Raleway', sans-serif;
+
 // Colors
 $red: #DA2C38;
 $blue: #114B5F;
 $gray: #D0CCD0;
 $white: #FBFCFF;
 $brown: #605856;
+
+// Spacing
+$camera-height: 240px;
+$camera-width: 320px;
+$page-padding: 30px;
+$element-padding: 16px;
+
+// Font sizes
+$title: 52px;
+$subtitle: 26px;
+$text: 16px;
