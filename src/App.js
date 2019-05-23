@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react'
+import Home from './pages/Home'
 
-class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+class App extends Component {
   componentDidMount() {
     // Setup web gazer
     const script = document.createElement("script");
@@ -19,8 +15,7 @@ class App extends React.Component {
       this.webgazer = window.webgazer;
       this.webgazer.begin();
       this.setupWebpack(this.webgazer);
-    }, 2000
-    )
+    }, 2000)
   }
 
   setupWebpack(webpack) {
@@ -32,7 +27,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>Hello World!</div>
+      <Home />
     );
   }
 }

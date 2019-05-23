@@ -2,5 +2,7 @@
 @import './mixins.scss';
 
 // import components
+@import '../components/Button/button.imports.scss';
 
 // import pages
+@import '../pages/Home/home.imports.scss';
