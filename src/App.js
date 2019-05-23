@@ -1,17 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Home from './pages/Home'
 
-class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+class App extends Component {
   componentDidMount() {
-
     // Setup web gazer
-
     const script = document.createElement("script");
 
     script.src = "https://webgazer.cs.brown.edu/webgazer.js?";
@@ -19,13 +11,11 @@ class App extends React.Component {
 
     document.body.appendChild(script);
 
-    setTimeout(() =>
-        {
-          this.webgazer = window.webgazer;
-          this.webgazer.begin();
-          this.setupWebpack(this.webgazer);
-        },  2000
-    )
+    setTimeout(() => {
+      this.webgazer = window.webgazer;
+      this.webgazer.begin();
+      this.setupWebpack(this.webgazer);
+    }, 2000)
   }
 
   setupWebpack(webpack) {
@@ -37,22 +27,7 @@ class App extends React.Component {
 
   render() {
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              HI!
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-        </div>
+      <Home />
     );
   }
 }
