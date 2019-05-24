@@ -11,16 +11,23 @@ class App extends Component {
 
     this.state = {'didSayHello': true,
                   'showCursor': false,
+                  'cursorClicked': false,
                   'cursorLocation': {'x': 0, 'y': 0}};
+
     this.counter = 0;
     this.xPredTempAvg = 0;
     this.yPredTempAvg = 0;
 
     this.handleGaze = this.handleGaze.bind(this);
+    this.didSayClick = this.didSayClick.bind(this);
   }
 
   didSayClick() {
-
+    console.log('Said Click!');
+    this.setState({'cursorClicked': true});
+    setTimeout(() => {
+      this.setState({'cursorClicked': false});
+    }, 650);
   }
 
   setupAnnyang() {
@@ -33,7 +40,11 @@ class App extends Component {
           console.log('Said hello!');
           this.setState({'didSayHello': true});
         },
-        'click': this.didSayClick
+        'select': this.didSayClick,
+        'celect': this.didSayClick,
+        'selection': this.didSayClick,
+        'click': this.didSayClick,
+        'clique': this.didSayClick
       };
 
       annyang.addCommands(commands);
@@ -45,7 +56,7 @@ class App extends Component {
   }
 
   userSaid(words) {
-    console.log("User Said: " + String(words[0]));
+    console.log("User Said: " + words.toString());
   }
 
   handleGaze(data, elapsedTime) {
@@ -101,7 +112,7 @@ class App extends Component {
   render() {
     return (
         <div>
-          <Cursor visibility={this.state.showCursor} x={this.state.cursorLocation.x} y={this.state.cursorLocation.y}/>
+          <Cursor clicked={this.state.cursorClicked} visibility={this.state.showCursor} x={this.state.cursorLocation.x} y={this.state.cursorLocation.y}/>
           <Home visibility={this.state.didSayHello}/>
         </div>
         )
