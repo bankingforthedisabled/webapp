@@ -3,7 +3,7 @@ import LeftSidebar from '../../components/LeftSidebar/';
 import RightSidebar from '../../components/RightSidebar/';
 
 const Home = (props) => (
-  <div className={props.visibility ? "home": "hidden"}>
+  <div className={"home"}>
     <div className="container">
       <LeftSidebar />
       <div className="main">

@@ -110,7 +110,15 @@ class App extends Component {
   }
 
   render() {
-    return <Routes />;
+    return (
+        <div>
+          <Cursor visibility={this.state.showCursor}
+                  clicked={this.state.cursorClicked}
+                  x={this.state.cursorLocation.x}
+                  y={this.state.cursorLocation.y} />
+          <Routes />
+        </div>
+        );
   }
 }
 
