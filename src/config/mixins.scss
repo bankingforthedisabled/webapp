@@ -28,3 +28,8 @@
     color: $white;
   }
 }
+
+.container {
+  display: grid;
+  grid-template-columns: $camera-width 1fr 1fr;
+}

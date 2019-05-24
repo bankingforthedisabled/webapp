@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import annyang from "annyang";
 import Home from "./pages/Home";
+import LoanList from "./pages/LoanList";
 
 class App extends Component {
 
@@ -95,7 +96,7 @@ class App extends Component {
   }
 
   render() {
-    return <Home visibility={this.state.didSayHello} />;
+    return <LoanList />
   }
 }
 
