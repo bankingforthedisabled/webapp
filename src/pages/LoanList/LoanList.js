@@ -30,7 +30,7 @@ class LoanList extends Component {
               <Loan loan={loan} key={index} />
             ))}
           </div>
-          <RightSidebar />
+          <RightSidebar topName="Back" bottomName="Transfer"/>
         </div>
       </div>
     );

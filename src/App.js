@@ -3,18 +3,18 @@ import annyang from "annyang";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import Routes from "./Routes";
-import Cursor from "./components/Cursor/Cursor";
+import Redirect from "./Routes";
+import Cursor from "./components/Cursor/Cursor"
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      didSayHello: true,
-      showCursor: false,
-      cursorClicked: false,
-      cursorLocation: { x: 0, y: 0 }
-    };
+    this.state = {'didSayHello': true,
+                  'showCursor': false,
+                  'cursorClicked': false,
+                  'cursorLocation': {'x': 0, 'y': 0},
+                  'page': 'home'};
 
     this.counter = 0;
     this.xPredTempAvg = 0;
@@ -32,6 +32,20 @@ class App extends Component {
     }, 650);
 
     // Navigate on click code
+
+    let location = this.state.cursorLocation;
+
+    if (location.x >= 880 && location.y <= 399 && this.state.page === 'home') {
+      // Navigation to make a payment
+      this.setState({'page': 'loans'})
+    }
+
+    if (location.x >= 880 && location.y <= 399 && this.state.page === 'loans') {
+      // Navigation to make a payment
+      this.setState({'page': 'home'})
+    }
+
+
 
 
   }
@@ -62,6 +76,7 @@ class App extends Component {
 
   userSaid(words) {
     console.log("User Said: " + words.toString());
+    this.setState({'lastWord': words[0]});
   }
 
   handleGaze(data, elapsedTime) {
@@ -123,16 +138,14 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Cursor
-          visibility={this.state.showCursor}
-          clicked={this.state.cursorClicked}
-          x={this.state.cursorLocation.x}
-          y={this.state.cursorLocation.y}
-        />
-        <Routes />
-      </div>
-    );
+        <div>
+          <Cursor visibility={this.state.showCursor}
+                  clicked={this.state.cursorClicked}
+                  x={this.state.cursorLocation.x}
+                  y={this.state.cursorLocation.y} />
+          <Routes page={this.state.page} lastWord={this.state.lastWord} />
+        </div>
+        );
   }
 }
 

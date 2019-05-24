@@ -9,8 +9,12 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path="/Home" component={props => <Home {...props} />} />
-            <Route path="/LoanList" component={LoanList} />
+            <Route path="/Home" component={(props) => <Home {...props} />}>
+              {this.props.page === 'loans' && <Redirect to={'/loanlist'}/>}
+            </Route>
+            <Route path="/LoanList" component={LoanList}>
+              {this.props.page === 'home' && <Redirect to={'/home'}/>}
+            </Route>
           </Switch>
         </div>
       </BrowserRouter>

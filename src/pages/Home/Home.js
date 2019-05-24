@@ -33,7 +33,7 @@ class Home extends Component {
     return (
       <div className="home">
         <div className="container">
-          <LeftSidebar />
+          <LeftSidebar {...this.props} />
           <div className="main">
             <h1 className="title">Welcome, {this.state.customer_name}!</h1>
             <h2 className="instructions">Gaze to navigate</h2>
@@ -57,7 +57,7 @@ class Home extends Component {
               </div>
             </div>
           </div>
-          <RightSidebar />
+          <RightSidebar topName="Make a Payment" bottomName="Transfer"/>
         </div>
       </div>
     );
