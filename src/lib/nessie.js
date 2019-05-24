@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const account_number = "5ce3fb73322fa06b67794d41";
-const api_key = "263c7339677335a1bdd1b087b31d3e0d";
 const base = "http://api.reimaginebanking.com";
-// const customer_id = "5ce3fb8b322fa06b67794db1";
+const account_number = "5ce3fb8c322fa06b67794db6";
+const api_key = "7e9e0606ab9d8df00f3622753349bc63";
+const customer_id = "5ce3fb8b322fa06b67794db1";
 
 //getCustomers
 export const getCustomers = () => {
@@ -53,8 +53,11 @@ export const getCustomerTransfers = () => {
  */
 export const getCustomerAccounts = () => {
   return axios
-    .get(`${base}/accounts/${account_number}/customer?key=${api_key}`)
+    .get(
+      `http://api.reimaginebanking.com/customers/${customer_id}/accounts?key=${api_key}`
+    )
     .then(res => {
       console.log(res.data);
+      return res.data;
     });
 };
