@@ -7,3 +7,12 @@
   font-family: $raleway;
   font-size: $subtitle;
 }
+
+@mixin text {
+  font-family: $raleway;
+  font-size: $text;
+}
+
+.clearfix {
+  clear: both;
+}
