@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const account_number = "5ce3fb8c322fa06b67794db6";
-const api_key = process.env.REACT_APP_NESSIE_KEY;
+const api_key = '263c7339677335a1bdd1b087b31d3e0d';
 // const customer_id = "5ce3fb8b322fa06b67794db1";
 
 //getCustomer - Returns an JSON object of key value pairs (data.first_name, data.last_name, data.address)

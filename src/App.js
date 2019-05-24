@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Home from "./pages/Home";
+import LoanList from "./pages/LoanList";
 
 class App extends Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    return <Home />;
+    return <LoanList />
   }
 }
 
