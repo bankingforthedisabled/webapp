@@ -141,7 +141,7 @@ class LoanList extends Component {
                   id="loanAmount"
                   type="text"
                   name="name"
-                  value={this.state.paymentAmount === -1 ? 'Speak value' : "$" + String(this.state.paymentAmount)}
+                  value={this.state.paymentAmount === -1 ? 'Speak value' : String(this.state.paymentAmount)}
                   onChange={this.handleChange}
               />
               <input
