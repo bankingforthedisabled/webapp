@@ -9537,7 +9537,7 @@ var mosseFilterResponses = function() {
         this.screenYClicksArray = new webgazer.util.DataWindow(dataWindow);
         this.eyeFeaturesClicks = new webgazer.util.DataWindow(dataWindow);
 
-        //sets to one second worth of cursor trail
+        //sets to one second worth of Cursor trail
         this.trailTime = 1000;
         this.trailDataWindow = this.trailTime / webgazer.params.moveTickSize;
         this.screenXTrailArray = new webgazer.util.DataWindow(trailDataWindow);
@@ -9776,7 +9776,7 @@ var mosseFilterResponses = function() {
         this.screenYClicksArray = new webgazer.util.DataWindow(dataWindow);
         this.eyeFeaturesClicks = new webgazer.util.DataWindow(dataWindow);
 
-        //sets to one second worth of cursor trail
+        //sets to one second worth of Cursor trail
         this.trailTime = 1000;
         this.trailDataWindow = this.trailTime / webgazer.params.moveTickSize;
         this.screenXTrailArray = new webgazer.util.DataWindow(trailDataWindow);
@@ -10613,7 +10613,7 @@ function store_points(x, y, k) {
     }
 
     /**
-    * Alerts the user of the cursor position, used for debugging & testing
+    * Alerts the user of the Cursor position, used for debugging & testing
     */
     function checkCursor(){ //used to test
       alert("Cursor at: " + cursorX + ", " + cursorY);

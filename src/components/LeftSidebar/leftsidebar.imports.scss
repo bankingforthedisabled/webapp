@@ -19,6 +19,7 @@
     height: calc(100vh - 240px);
     position: relative;
     top: $camera-height;
+    z-index: -1;
 
     h3 {
       color: $black;

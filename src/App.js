@@ -2,20 +2,50 @@ import React, { Component } from "react";
 import annyang from "annyang";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
+import Cursor from "./components/Cursor/Cursor"
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {'didSayHello': true};
+    this.state = {'didSayHello': true,
+                  'showCursor': false,
+                  'cursorLocation': {'x': 0, 'y': 0}};
     this.counter = 0;
-    this.xPredictionAvg = 0;
-    this.yPredictionAvg = 0;
+    this.xPredTempAvg = 0;
+    this.yPredTempAvg = 0;
+
+    this.handleGaze = this.handleGaze.bind(this);
   }
 
   didSayClick() {
 
+  }
+
+  setupAnnyang() {
+    // Setup Annyang
+
+    if (annyang) {
+
+      let commands = {
+        'hello': () => {
+          console.log('Said hello!');
+          this.setState({'didSayHello': true});
+        },
+        'click': this.didSayClick
+      };
+
+      annyang.addCommands(commands);
+
+      annyang.addCallback('result', this.userSaid);
+
+      annyang.start();
+    }
+  }
+
+  userSaid(words) {
+    console.log("User Said: " + String(words[0]));
   }
 
   handleGaze(data, elapsedTime) {
@@ -23,19 +53,19 @@ class App extends Component {
       return;
     }
 
-    this.xPredictionAvg += data.x;
-    this.yPredictionAvg += data.y;
+    this.xPredTempAvg += data.x;
+    this.yPredTempAvg += data.y;
+    this.counter += 1;
 
-    if (this.counter == 4) {
-      this.xPredictionAvg /= 4;
-      this.yPredictionAvg /= 4;
+    if (this.counter === 15) {
+      this.xPredTempAvg = this.xPredTempAvg / 15;
+      this.yPredTempAvg = this.yPredTempAvg / 15;
       this.counter = 0;
+
+      this.setState({'showCursor': true, 'cursorLocation': {'x': this.xPredTempAvg, 'y': this.yPredTempAvg}});
+      this.xPredTempAvg = 0;
+      this.yPredTempAvg = 0;
     }
-
-
-    let xprediction = String(data.x); //these x coordinates are relative to the viewport
-    let yprediction = String(data.y); //these y coordinates are relative to the viewport
-    console.log("Prediction: " + xprediction + "," + yprediction);
   }
 
   componentDidMount() {
@@ -53,22 +83,7 @@ class App extends Component {
       this.setupWebpack(this.webgazer);
     }, 2000);
 
-    // Setup Annyang
-
-    if (annyang) {
-
-      let commands = {
-        'hello': () => {
-          console.log('Said hello!');
-          this.setState({'didSayHello': true});
-        },
-        'click': this.didSayClick
-      };
-
-      annyang.addCommands(commands);
-
-      annyang.start();
-    }
+    this.setupAnnyang();
   }
 
   setupWebpack(webgazer) {
@@ -79,24 +94,17 @@ class App extends Component {
     window.localStorage.setItem(localstorageLabel, null);
 
     webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
-    this.checkIfReady();
-  }
-
-  checkIfReady() {
-    if (this.webgazer.isReady()) {
-      console.log("Webgazer is ready");
-      this.webgazer.setGazeListener(this.handleGaze);
-      console.log("Set webgaze listener");
-
-
-    } else {
-      // Recall ready
-      setTimeout(this.checkIfReady, 100);
-    }
+    this.webgazer.setGazeListener(this.handleGaze);
+    console.log("Set webgaze listener");
   }
 
   render() {
-    return <LoanList />
+    return (
+        <div>
+          <Cursor visibility={this.state.showCursor} x={this.state.cursorLocation.x} y={this.state.cursorLocation.y}/>
+          <Home visibility={this.state.didSayHello}/>
+        </div>
+        )
   }
 }
 
