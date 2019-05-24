@@ -1,7 +1,7 @@
 import React from 'react'
+import Nessie from './Nessie.js'
 
 const Home = () => (
-  <div className="home">
     <div className="container">
       <div className="left-sidebar">
         <h3>Loading...</h3>

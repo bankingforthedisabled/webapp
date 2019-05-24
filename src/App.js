@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Home from './pages/Home'
+import React, { Component } from "react";
+import Home from "./pages/Home";
 
 class App extends Component {
   componentDidMount() {
@@ -15,7 +15,7 @@ class App extends Component {
       this.webgazer = window.webgazer;
       this.webgazer.begin();
       this.setupWebpack(this.webgazer);
-    }, 2000)
+    }, 2000);
   }
 
   setupWebpack(webpack) {
@@ -26,9 +26,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Home />
-    );
+    return <Home />;
   }
 }
 
