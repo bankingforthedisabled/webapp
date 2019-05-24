@@ -6,7 +6,7 @@ class App extends Component {
     // Setup web gazer
     const script = document.createElement("script");
 
-    script.src = "https://webgazer.cs.brown.edu/webgazer.js?";
+    script.src = "/webgazer.js";
     script.async = false;
 
     document.body.appendChild(script);
@@ -18,10 +18,34 @@ class App extends Component {
     }, 2000);
   }
 
-  setupWebpack(webpack) {
+  setupWebpack(webgazer) {
     // Setup webpack configuration
-    if (webpack.detectCompatibility()) {
-      console.log("WEBPACK IS COMPATIBLE!!!");
+    console.log("Setting up webgazer");
+
+    var localstorageLabel = 'webgazerGlobalData';
+    window.localStorage.setItem(localstorageLabel, null);
+
+    webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
+    this.checkIfReady();
+  }
+
+  checkIfReady() {
+    if (this.webgazer.isReady()) {
+      console.log("Webgazer is ready");
+      this.webgazer.setGazeListener(function(data, elapsedTime) {
+        if (data == null) {
+          return;
+        }
+        let xprediction = String(data.x); //these x coordinates are relative to the viewport
+        let yprediction = String(data.y); //these y coordinates are relative to the viewport
+        console.log("Prediction: " + xprediction + "," + yprediction);
+      });
+      console.log("Set webgaze listener");
+
+
+    } else {
+      // Recall ready
+      setTimeout(this.checkIfReady, 100);
     }
   }
 
