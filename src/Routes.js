@@ -10,10 +10,8 @@ class Routes extends Component {
         <div>
           <Switch>
             <Route path="/Home" component={(props) => <Home {...props} />}>
-              {this.props.page === 'loans' && <Redirect to={'/loanlist'}/>}
             </Route>
             <Route path="/LoanList" component={LoanList}>
-              {/*{this.props.page === 'home' && <Redirect to={'/home'}/>}*/}
             </Route>
           </Switch>
         </div>

@@ -7,5 +7,29 @@
       @include title;
       text-align: center;
     }
+    .title2 {
+      @include title;
+      text-align: center;
+      padding-bottom: 24px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      .ammount {
+        @include text;
+        margin-bottom: 8px;
+      }
+      .field {
+        @include text;
+        font-size: 14px;
+        width: 100%;
+        margin-bottom: 8px;
+      }
+      .submit {
+        @include text;
+      }
+    }
   }
+
+
 }

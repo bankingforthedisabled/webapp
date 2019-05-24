@@ -2,31 +2,79 @@ import React, { Component } from "react";
 import LeftSidebar from "../../components/LeftSidebar/";
 import RightSidebar from "../../components/RightSidebar/";
 import Account from "../../components/Loan/Account";
-import { Redirect, Link } from "react-router-dom";
-
+import { Redirect } from "react-router-dom";
 import {
   getCustomerData,
-  getCustomerLoans,
-  getCustomerTransfers,
   getCustomerAccounts
 } from "../../lib/nessie.js";
+import annyang from "annyang";
 
 class Home extends Component {
-  state = {
-    customer_name: "",
-    accounts: [],
-    redirect: false
-  };
 
-  //Router
-  redirect = e => {
-    console.log("redirect");
-    this.setState({
-      redirect: true
-    });
-  };
+  constructor(props) {
+    super(props);
+    this.didSayClick = this.didSayClick.bind(this);
+    this.setupAnnyang = this.setupAnnyang.bind(this);
+    this.userSaid = this.userSaid.bind(this);
+    this.handleCursorLoc = this.handleCursorLoc.bind(this);
+
+    this.state = {
+      customer_name: "",
+      accounts: [],
+      redirectToLoans: false
+    };
+  }
+
+  setupAnnyang() {
+    // Setup Annyang
+
+    if (annyang) {
+      let commands = {
+        hello: () => {
+          console.log("Said hello!");
+          this.setState({ didSayHello: true });
+        },
+        select: this.didSayClick,
+        celect: this.didSayClick,
+        selection: this.didSayClick,
+        click: this.didSayClick,
+        clique: this.didSayClick
+      };
+
+      annyang.addCommands(commands);
+
+      annyang.addCallback("result", this.userSaid);
+
+      annyang.start();
+    }
+  }
+
+  didSayClick() {
+    console.log("Detected click word!");
+
+    if (window.cursorClickListener) {
+      window.cursorClickListener();
+    }
+
+    if (this.cursorX >= 880 && this.cursorY <= 399) {
+      // Navigation to make a payment
+      this.setState({'redirectToLoans': true});
+      console.log("Navigated to loans");
+    }
+  }
+
+  userSaid(words) {
+    //console.log("User Said: " + words.toString());
+  }
+
+  handleCursorLoc(x, y) {
+    this.cursorX = x;
+    this.cursorY = y;
+  }
 
   componentDidMount() {
+    window.cursorListener = this.handleCursorLoc;
+    this.setupAnnyang();
     const customerData = getCustomerData().then(data => {
       this.setState({
         customer_name: data.first_name
@@ -38,12 +86,11 @@ class Home extends Component {
       });
     });
   }
+
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/LoanList" />;
-    }
     return (
       <div className="home">
+        {this.state.redirectToLoans && <Redirect to={'/loanlist'}/>}
         <div className="container">
           <LeftSidebar {...this.props} />
           <div className="main">

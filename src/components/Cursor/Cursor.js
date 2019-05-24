@@ -4,8 +4,7 @@ import './Cursor.imports.scss'
 class Cursor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {'x': 0, 'y': 0};
-        this.updateLocation = props.updateLocation;
+        this.state = {'x': 0, 'y': 0, 'clicked': false};
 
         this.counter = 0;
         this.xPredTempAvg = 0;
@@ -28,7 +27,9 @@ class Cursor extends React.Component {
             this.xPredTempAvg = this.xPredTempAvg / 15;
             this.yPredTempAvg = this.yPredTempAvg / 15;
             this.counter = 0;
-            this.updateLocation(this.xPredTempAvg, this.yPredTempAvg);
+            if (window.cursorListener) {
+                window.cursorListener(this.xPredTempAvg, this.yPredTempAvg);
+            }
             this.setState({
                 x: this.xPredTempAvg,
                 y: this.yPredTempAvg
@@ -52,6 +53,15 @@ class Cursor extends React.Component {
             this.webgazer.begin();
             this.setupWebpack(this.webgazer);
         }, 2000);
+
+        window.cursorClickListener = () => {
+            console.log("Click listener activated");
+            this.setState({'clicked': true});
+            setTimeout(
+                () => {this.setState({'clicked': false})},
+                800
+            );
+        }
     }
 
     componentWillUnmount() {
@@ -74,10 +84,9 @@ class Cursor extends React.Component {
         let style = {
             'height': '50px',
             'width': '50px',
-            'display': this.props.visibility ? 'initial' : 'none',
             'position': 'fixed',
             'borderRadius': '50%',
-            'border': '5px solid ' + (this.props.clicked ? '#b042f4' : '#42f477'),
+            'border': '5px solid ' + (this.state.clicked ? '#b042f4' : '#42f477'),
             'top': this.state.y - 25,
             'left': this.state.x - 25,
             'zIndex': '999',

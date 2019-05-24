@@ -1,7 +1,7 @@
 .loan {
   padding: $element-padding;
-  margin-top: $element-padding;
-  margin-bottom: $element-padding;
+  margin-top: 16;
+  margin-bottom: 16;
   border-radius: 5px;
   &.loan__red {
     background: linear-gradient($red, $pure-red);
@@ -13,12 +13,13 @@
   }
   .header {
     @include text;
-    color: $white;
+    color: $black;
     text-transform: uppercase;
     line-height: 30px;
   }
   p {
     @include text;
     line-height: 20px;
+    font-size: 16px;
   }
 }
