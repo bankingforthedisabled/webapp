@@ -4,6 +4,7 @@ const base = "http://api.reimaginebanking.com";
 const account_number = "5ce3fb8c322fa06b67794db6";
 const api_key = "7e9e0606ab9d8df00f3622753349bc63";
 const customer_id = "5ce3fb8b322fa06b67794db1";
+const loan_id = "5ce792f16759394351beecde";
 
 //getCustomers
 export const getCustomers = () => {
@@ -55,6 +56,21 @@ export const getCustomerAccounts = () => {
   return axios
     .get(
       `http://api.reimaginebanking.com/customers/${customer_id}/accounts?key=${api_key}`
+    )
+    .then(res => {
+      console.log(res.data);
+      return res.data;
+    });
+};
+
+//Update a loan by id
+export const updateLoan = () => {
+  return axios
+    .post(
+      `http://api.reimaginebanking.com/customers/${loan_id}/accounts?key=${api_key}`,
+      {
+        amount: 50
+      }
     )
     .then(res => {
       console.log(res.data);

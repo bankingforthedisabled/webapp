@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LeftSidebar from "../../components/LeftSidebar/";
 import RightSidebar from "../../components/RightSidebar/";
 import Account from "../../components/Loan/Account";
+import { Redirect, Link } from "react-router-dom";
 
 import {
   getCustomerData,
@@ -13,7 +14,16 @@ import {
 class Home extends Component {
   state = {
     customer_name: "",
-    accounts: []
+    accounts: [],
+    redirect: false
+  };
+
+  //Router
+  redirect = e => {
+    console.log("redirect");
+    this.setState({
+      redirect: true
+    });
   };
 
   componentDidMount() {
@@ -29,7 +39,9 @@ class Home extends Component {
     });
   }
   render() {
-    console.log(this.state.accounts);
+    if (this.state.redirect) {
+      return <Redirect to="/LoanList" />;
+    }
     return (
       <div className="home">
         <div className="container">
