@@ -1,3 +1,102 @@
 .home {
+  width: 100%;
+  height: 100vh;
+  .center-box {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    .center-box-title {
+      @include title;
+      color: $white;
+    }
+  }
+  .container {
+    display: grid;
+    grid-template-columns: $camera-width 1fr 1fr;
+  }
+  .left-sidebar {
+    height: 100vh;
+    h3 {
+      @include subtitle;
+      margin-top: 70px;
+      text-align: center;
+    }
+    p {
+      @include text;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .payments {
+      margin-top: -136px;
+      background-color: $gray;
+      height: calc(100vh - 240px);
+      position: relative;
+      top: $camera-height;
+      h3 {
+        color: $black;
+      }
+    }
+  }
+  .main {
+    padding-top: $page-padding;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .title {
+      @include title;
+      padding-bottom: $element-padding;
+    }
+    .instructions {
+      @include subtitle;
+      padding-bottom: $element-padding;
+    }
+  }
+  .account-details {
+    padding: $element-padding;
+    .account-details-header {
+      @include subtitle;
+      padding-top: $page-padding;
+      text-align: center;
+    }
 
+    .account-entry {
+      padding-bottom: $element-padding;
+      @include text;
+    }
+    
+    .account-name {
+      padding-bottom: $element-padding;
+      font-weight: bold;
+      float: left;
+    }
+    
+    .account-amount {
+      color: green;
+      float: right;
+    }
+  }
+  .voice-actions {
+    padding-top: $element-padding;
+    h3 {
+      @include subtitle;
+      padding-bottom: $element-padding;
+    }
+    p {
+      @include text;
+      text-align: left;
+    }    
+  }
+  .right-sidebar {
+    div {
+      height: 50%;
+    }
+    .deposit {
+      background-color: $red;
+    }
+    .transfer {
+      background-color: $blue;
+    }
+  }
 }
+
