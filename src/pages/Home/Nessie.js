@@ -42,7 +42,7 @@ class Nessie extends Component {
       });
   };
 
-  //getTransfers
+  // getTransfers
   // Returns array of all transfers
   // data.transaction_date, data.type, data.status, data.payer_id, data.payee_id, data.amount
   // for payer and payee id, call getCustomer (only print first name)
