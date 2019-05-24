@@ -16,3 +16,15 @@
 .clearfix {
   clear: both;
 }
+
+.center-box {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
+  .center-box-title {
+    @include title;
+    color: $white;
+  }
+}

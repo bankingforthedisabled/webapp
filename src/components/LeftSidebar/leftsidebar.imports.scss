@@ -1,0 +1,27 @@
+.left-sidebar {
+  height: 100vh;
+
+  h3 {
+    @include subtitle;
+    margin-top: 70px;
+    text-align: center;
+  }
+
+  p {
+    @include text;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .payments {
+    margin-top: -136px;
+    background-color: $gray;
+    height: calc(100vh - 240px);
+    position: relative;
+    top: $camera-height;
+
+    h3 {
+      color: $black;
+    }
+  }
+}

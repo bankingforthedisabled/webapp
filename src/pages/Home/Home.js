@@ -1,13 +1,11 @@
 import React from 'react'
+import LeftSidebar from '../../components/LeftSidebar/';
+import RightSidebar from '../../components/RightSidebar/';
 
 const Home = () => (
   <div className="home">
     <div className="container">
-      <div className="left-sidebar">
-        <h3>Loading...</h3>
-        <p>Hold still to calibrate!</p>
-        <div className="payments"></div>
-      </div>
+      <LeftSidebar />
       <div className="main">
         <h1 className="title">Welcome, Dylan!</h1>
         <h2 className="instructions">Gaze to navigate</h2>
@@ -42,14 +40,7 @@ const Home = () => (
           </div>
         </div>
       </div>
-      <div className="right-sidebar">
-        <div className="deposit center-box">
-          <h3 className="center-box-title">Make a Payment</h3>
-        </div>
-        <div className="transfer center-box">
-          <h3 className="center-box-title">Transfer</h3>
-        </div>
-      </div>
+      <RightSidebar />
     </div>
   </div >
 )

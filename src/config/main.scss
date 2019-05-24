@@ -2,8 +2,9 @@
 @import './variables.scss';
 @import './mixins.scss';
 
-// import components
-@import '../components/Button/button.imports.scss';
+// compoenents
+@import '../components/LeftSidebar/leftsidebar.imports.scss';
+@import '../components/RightSidebar/rightsidebar.imports.scss';
 
-// import pages
+// pages
 @import '../pages/Home/home.imports.scss';
