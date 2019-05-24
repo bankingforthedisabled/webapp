@@ -4,10 +4,10 @@
   }
 
   .deposit {
-    background-color: $red;
+    background: linear-gradient($pure-red, $red);
   }
 
   .transfer {
-    background-color: $blue;
+    background: linear-gradient($pure-blue, $blue);
   }
 }

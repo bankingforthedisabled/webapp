@@ -1,3 +1,24 @@
 .loan {
-  
+  padding: $element-padding;
+  margin-top: $element-padding;
+  margin-bottom: $element-padding;
+  border-radius: 5px;
+  &.loan__red {
+    background: linear-gradient($red, $pure-red);
+    background-color: $red;
+  }
+  &.loan__blue {
+    background: linear-gradient($blue, $pure-blue);
+    background-color: $blue;
+  }
+  .header {
+    @include text;
+    color: $white;
+    text-transform: uppercase;
+    line-height: 30px;
+  }
+  p {
+    @include text;
+    line-height: 20px;
+  }
 }
