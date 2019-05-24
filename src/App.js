@@ -30,6 +30,10 @@ class App extends Component {
     setTimeout(() => {
       this.setState({ cursorClicked: false });
     }, 650);
+
+    // Navigate on click code
+
+
   }
 
   setupAnnyang() {
@@ -101,18 +105,18 @@ class App extends Component {
     this.setupAnnyang();
   }
 
+  componentWillUnmount() {
+      if (this.webgazer) {
+        console.log('Webgazer closed!');
+        this.webgazer.end();
+      }
+  }
+
   setupWebpack(webgazer) {
     // Setup webpack configuration
     console.log("Setting up webgazer");
 
-    var localstorageLabel = "webgazerGlobalData";
-    window.localStorage.setItem(localstorageLabel, null);
-
-    webgazer
-      .setRegression("ridge")
-      .setTracker("clmtrackr")
-      .begin()
-      .showPredictionPoints(true);
+    webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
     this.webgazer.setGazeListener(this.handleGaze);
     console.log("Set webgaze listener");
   }

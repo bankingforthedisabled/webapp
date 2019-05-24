@@ -2089,7 +2089,7 @@ var objectdetect = (function() {
         }
         return matches;
     };
-
+//TODO this is a kludge, needs to be fixed
     /**
      * Gets the coordinates values of (x,y)-location pairs uniquely chosen
      * during the initialization.
@@ -9639,9 +9639,10 @@ var mosseFilterResponses = function() {
      */
     webgazer.reg.RidgeReg.prototype.setData = function(data) {
         for (var i = 0; i < data.length; i++) {
+
             //TODO this is a kludge, needs to be fixed
-            data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.left.patch), data[i].eyes.left.width, data[i].eyes.left.height);
-            data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(data[i].eyes.right.patch), data[i].eyes.right.width, data[i].eyes.right.height);
+            data[i].eyes.left.patch = new ImageData(new Uint8ClampedArray(Object.values(data[i].eyes.left.patch.data)), data[i].eyes.left.width, data[i].eyes.left.height);
+            data[i].eyes.right.patch = new ImageData(new Uint8ClampedArray(Object.values(data[i].eyes.right.patch.data)), data[i].eyes.right.width, data[i].eyes.right.height);
             this.addData(data[i].eyes, data[i].screenPos, data[i].type);
         }
     };
@@ -9814,6 +9815,8 @@ var mosseFilterResponses = function() {
             this.trailTimes.push(performance.now());
             this.dataTrail.push({'eyes':eyes, 'screenPos':screenPos, 'type':type});
         }
+
+        // Save to global data after every click - Dhruv!!
 
         // [20180730 JT] Why do we do this? It doesn't return anything...
         // But as JS is pass by reference, it still affects it.
@@ -10794,6 +10797,7 @@ function store_points(x, y, k) {
      */
     var clickListener = function(event) {
         recordScreenPosition(event.clientX, event.clientY, eventTypes[0]); // eventType[0] === 'click'
+        setGlobalData(); // Dhruv Update global data after every click
     };
 
     /**
@@ -10838,12 +10842,13 @@ function store_points(x, y, k) {
      * Loads the global data and passes it to the regression model
      */
     function loadGlobalData() {
-        var storage = JSON.parse(window.localStorage.getItem(localstorageLabel)) || defaults;
+        var storage = JSON.parse(localStorage.getItem(localstorageLabel)) || defaults;
         settings = storage.settings;
         data = storage.data;
         for (var reg in regs) {
             regs[reg].setData(storage.data);
         }
+        console.log("Loaded global data!")
     }
 
     /**
@@ -10854,7 +10859,8 @@ function store_points(x, y, k) {
             'settings': settings,
             'data': regs[0].getData() || data
         };
-        window.localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        localStorage.setItem(localstorageLabel, JSON.stringify(storage));
+        console.log("Global data set!");
         //TODO data should probably be stored in webgazer object instead of each regression model
         //     -> requires duplication of data, but is likely easier on regression model implementors
     }
@@ -10863,10 +10869,11 @@ function store_points(x, y, k) {
      * Clears data from model and global storage
      */
     function clearData() {
-        window.localStorage.set(localstorageLabel, undefined);
+        localStorage.clear();
         for (var reg in regs) {
             regs[reg].setData([]);
         }
+        console.log("Global data cleared!");
     }
 
     /**
@@ -11083,6 +11090,10 @@ function store_points(x, y, k) {
 
         setGlobalData();
         return webgazer;
+    };
+
+    webgazer.clear = function() {
+        clearData();
     };
 
     /**
