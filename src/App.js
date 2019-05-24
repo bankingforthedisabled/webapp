@@ -3,16 +3,18 @@ import annyang from "annyang";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
 import Routes from "./Routes";
-import Cursor from "./components/Cursor/Cursor"
+import Cursor from "./components/Cursor/Cursor";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {'didSayHello': true,
-                  'showCursor': false,
-                  'cursorClicked': false,
-                  'cursorLocation': {'x': 0, 'y': 0}};
+    this.state = {
+      didSayHello: true,
+      showCursor: false,
+      cursorClicked: false,
+      cursorLocation: { x: 0, y: 0 }
+    };
 
     this.counter = 0;
     this.xPredTempAvg = 0;
@@ -23,10 +25,10 @@ class App extends Component {
   }
 
   didSayClick() {
-    console.log('Said Click!');
-    this.setState({'cursorClicked': true});
+    console.log("Said Click!");
+    this.setState({ cursorClicked: true });
     setTimeout(() => {
-      this.setState({'cursorClicked': false});
+      this.setState({ cursorClicked: false });
     }, 650);
   }
 
@@ -34,22 +36,21 @@ class App extends Component {
     // Setup Annyang
 
     if (annyang) {
-
       let commands = {
-        'hello': () => {
-          console.log('Said hello!');
-          this.setState({'didSayHello': true});
+        hello: () => {
+          console.log("Said hello!");
+          this.setState({ didSayHello: true });
         },
-        'select': this.didSayClick,
-        'celect': this.didSayClick,
-        'selection': this.didSayClick,
-        'click': this.didSayClick,
-        'clique': this.didSayClick
+        select: this.didSayClick,
+        celect: this.didSayClick,
+        selection: this.didSayClick,
+        click: this.didSayClick,
+        clique: this.didSayClick
       };
 
       annyang.addCommands(commands);
 
-      annyang.addCallback('result', this.userSaid);
+      annyang.addCallback("result", this.userSaid);
 
       annyang.start();
     }
@@ -73,7 +74,10 @@ class App extends Component {
       this.yPredTempAvg = this.yPredTempAvg / 15;
       this.counter = 0;
 
-      this.setState({'showCursor': true, 'cursorLocation': {'x': this.xPredTempAvg, 'y': this.yPredTempAvg}});
+      this.setState({
+        showCursor: true,
+        cursorLocation: { x: this.xPredTempAvg, y: this.yPredTempAvg }
+      });
       this.xPredTempAvg = 0;
       this.yPredTempAvg = 0;
     }
@@ -104,21 +108,27 @@ class App extends Component {
     var localstorageLabel = "webgazerGlobalData";
     window.localStorage.setItem(localstorageLabel, null);
 
-    webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
+    webgazer
+      .setRegression("ridge")
+      .setTracker("clmtrackr")
+      .begin()
+      .showPredictionPoints(true);
     this.webgazer.setGazeListener(this.handleGaze);
     console.log("Set webgaze listener");
   }
 
   render() {
     return (
-        <div>
-          <Cursor visibility={this.state.showCursor}
-                  clicked={this.state.cursorClicked}
-                  x={this.state.cursorLocation.x}
-                  y={this.state.cursorLocation.y} />
-          <Routes />
-        </div>
-        );
+      <div>
+        <Cursor
+          visibility={this.state.showCursor}
+          clicked={this.state.cursorClicked}
+          x={this.state.cursorLocation.x}
+          y={this.state.cursorLocation.y}
+        />
+        <Routes />
+      </div>
+    );
   }
 }
 
