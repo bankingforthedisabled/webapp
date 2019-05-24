@@ -9,7 +9,7 @@ class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path="/Home" component={(props) => <Home {...props} />} />
+            <Route path="/Home" component={props => <Home {...props} />} />
             <Route path="/LoanList" component={LoanList} />
           </Switch>
         </div>

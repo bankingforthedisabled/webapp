@@ -15,30 +15,6 @@
       padding-bottom: $element-padding;
     }
   }
-  .account-details {
-    padding: $element-padding;
-    .account-details-header {
-      @include subtitle;
-      padding-top: $page-padding;
-      text-align: center;
-    }
-
-    .account-entry {
-      padding-bottom: $element-padding;
-      @include text;
-    }
-    
-    .account-name {
-      padding-bottom: $element-padding;
-      font-weight: bold;
-      float: left;
-    }
-    
-    .account-amount {
-      color: green;
-      float: right;
-    }
-  }
   .voice-actions {
     padding-top: $element-padding;
     h3 {
@@ -48,10 +24,35 @@
     p {
       @include text;
       text-align: left;
-    }    
+    }
   }
 }
 
 .hidden {
   display: none;
+}
+
+.account-details {
+  padding: $element-padding;
+  .account-details-header {
+    @include subtitle;
+    padding-top: $page-padding;
+    text-align: center;
+  }
+
+  .account-entry {
+    padding-bottom: $element-padding;
+    @include text;
+  }
+
+  .account-name {
+    padding-bottom: $element-padding;
+    font-weight: bold;
+    float: left;
+  }
+
+  .account-amount {
+    color: green;
+    float: right;
+  }
 }

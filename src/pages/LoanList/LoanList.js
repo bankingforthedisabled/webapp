@@ -1,26 +1,25 @@
-import React, { Component } from 'react'
-import RightSidebar from '../../components/RightSidebar'
-import LeftSidebar from '../../components/LeftSidebar'
+import React, { Component } from "react";
+import RightSidebar from "../../components/RightSidebar";
+import LeftSidebar from "../../components/LeftSidebar";
 
-import { getCustomers, getCustomerLoans } from '../../lib/nessie'
-import Loan from '../../components/Loan/Loan';
+import { getCustomers, getCustomerLoans } from "../../lib/nessie";
+import Loan from "../../components/Loan/Loan";
 
 class LoanList extends Component {
   state = {
     loans: []
-  }
+  };
 
   componentDidMount() {
-    getCustomerLoans("5ce3fb73322fa06b67794d41")
-      .then(data => {
-        this.setState({
-          loans: data
-        })
+    getCustomerLoans("5ce3fb73322fa06b67794d41").then(data => {
+      this.setState({
+        loans: data
       });
+    });
   }
 
   render() {
-    console.log(this.state.loans)
+    console.log(this.state.loans);
     return (
       <div className="loanlist">
         <div className="container">
@@ -33,9 +32,9 @@ class LoanList extends Component {
           </div>
           <RightSidebar />
         </div>
-      </div >
-    )
+      </div>
+    );
   }
 }
 
-export default LoanList
+export default LoanList;
