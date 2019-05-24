@@ -2,8 +2,8 @@ import React from 'react'
 import LeftSidebar from '../../components/LeftSidebar/';
 import RightSidebar from '../../components/RightSidebar/';
 
-const Home = () => (
-  <div className="home">
+const Home = (props) => (
+  <div className={props.visibility ? "home": "hidden"}>
     <div className="container">
       <LeftSidebar />
       <div className="main">
