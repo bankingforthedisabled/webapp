@@ -2,21 +2,19 @@ import React, { Component } from "react";
 import annyang from "annyang";
 import Home from "./pages/Home";
 import LoanList from "./pages/LoanList";
+import Routes from "./Routes";
 
 class App extends Component {
-
   constructor(props) {
     super(props);
 
-    this.state = {'didSayHello': true};
+    this.state = { didSayHello: true };
     this.counter = 0;
     this.xPredictionAvg = 0;
     this.yPredictionAvg = 0;
   }
 
-  didSayClick() {
-
-  }
+  didSayClick() {}
 
   handleGaze(data, elapsedTime) {
     if (data == null) {
@@ -31,7 +29,6 @@ class App extends Component {
       this.yPredictionAvg /= 4;
       this.counter = 0;
     }
-
 
     let xprediction = String(data.x); //these x coordinates are relative to the viewport
     let yprediction = String(data.y); //these y coordinates are relative to the viewport
@@ -56,13 +53,12 @@ class App extends Component {
     // Setup Annyang
 
     if (annyang) {
-
       let commands = {
-        'hello': () => {
-          console.log('Said hello!');
-          this.setState({'didSayHello': true});
+        hello: () => {
+          console.log("Said hello!");
+          this.setState({ didSayHello: true });
         },
-        'click': this.didSayClick
+        click: this.didSayClick
       };
 
       annyang.addCommands(commands);
@@ -75,10 +71,14 @@ class App extends Component {
     // Setup webpack configuration
     console.log("Setting up webgazer");
 
-    var localstorageLabel = 'webgazerGlobalData';
+    var localstorageLabel = "webgazerGlobalData";
     window.localStorage.setItem(localstorageLabel, null);
 
-    webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
+    webgazer
+      .setRegression("ridge")
+      .setTracker("clmtrackr")
+      .begin()
+      .showPredictionPoints(true);
     this.checkIfReady();
   }
 
@@ -87,8 +87,6 @@ class App extends Component {
       console.log("Webgazer is ready");
       this.webgazer.setGazeListener(this.handleGaze);
       console.log("Set webgaze listener");
-
-
     } else {
       // Recall ready
       setTimeout(this.checkIfReady, 100);
@@ -96,7 +94,7 @@ class App extends Component {
   }
 
   render() {
-    return <LoanList />
+    return <Routes />;
   }
 }
 
