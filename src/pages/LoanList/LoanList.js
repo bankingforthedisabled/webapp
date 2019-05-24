@@ -13,7 +13,7 @@ class LoanList extends Component {
   };
 
   updateLoan = () => {
-      .put(
+      axios.put(
         "http://api.reimaginebanking.com/loans/5ce792f16759394351beecde?key=7e9e0606ab9d8df00f3622753349bc63",
         {
           amount: parseInt(this.state.loanAmount)
@@ -37,6 +37,9 @@ class LoanList extends Component {
         loans: data
       });
     });
+
+    // Click when loading
+    window.document.getElementById('payment_form').click();
   }
 
   render() {
@@ -62,6 +65,7 @@ class LoanList extends Component {
                 />
               </label>
               <input
+                  id='payment_form'
                 type="submit"
                 value="Submit"
                 onClick={this.updateLoan(24)}

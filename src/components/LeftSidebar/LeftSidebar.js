@@ -5,8 +5,8 @@ const LeftSidebar = (props) => (
     <h3>Loading...</h3>
     <p>Hold still to calibrate!</p>
     <div className="payments">
-        <p>Last Word:</p>
-        <p>{props.lastWord}</p>
+        {/*<p>Last Word:</p>*/}
+        {/*<p>{props.lastWord}</p>*/}
     </div>
   </div>
 )

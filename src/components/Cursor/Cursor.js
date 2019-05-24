@@ -1,20 +1,90 @@
 import React from 'react';
 import './Cursor.imports.scss'
 
-function Cursor(props) {
-    let style = {
-        'height': '50px',
-        'width': '50px',
-        'display': props.visibility ? 'initial' : 'none',
-        'position': 'fixed',
-        'borderRadius': '50%',
-        'border': '5px solid ' + (props.clicked ? '#b042f4' : '#42f477'),
-        'top': props.y - 25,
-        'left': props.x - 25,
-        'zIndex': '999',
-        'transition': 'top 100ms ease-in-out, left 100ms ease-in-out, border 300ms ease-out'
-    };
-    return <div style={style}/>;
+class Cursor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {'x': 0, 'y': 0};
+        this.updateLocation = props.updateLocation;
+
+        this.counter = 0;
+        this.xPredTempAvg = 0;
+        this.yPredTempAvg = 0;
+
+        this.handleGaze = this.handleGaze.bind(this);
+        this.setupWebpack = this.setupWebpack.bind(this);
+    }
+
+    handleGaze(data, elapsedTime) {
+        if (data == null) {
+            return;
+        }
+
+        this.xPredTempAvg += data.x;
+        this.yPredTempAvg += data.y;
+        this.counter += 1;
+
+        if (this.counter === 15) {
+            this.xPredTempAvg = this.xPredTempAvg / 15;
+            this.yPredTempAvg = this.yPredTempAvg / 15;
+            this.counter = 0;
+            this.updateLocation(this.xPredTempAvg, this.yPredTempAvg);
+            this.setState({
+                x: this.xPredTempAvg,
+                y: this.yPredTempAvg
+            });
+            this.xPredTempAvg = 0;
+            this.yPredTempAvg = 0;
+        }
+    }
+
+    componentDidMount() {
+        // Setup web gazer
+        const script = document.createElement("script");
+
+        script.src = "/webgazer.js";
+        script.async = false;
+
+        document.body.appendChild(script);
+
+        setTimeout(() => {
+            this.webgazer = window.webgazer;
+            this.webgazer.begin();
+            this.setupWebpack(this.webgazer);
+        }, 2000);
+    }
+
+    componentWillUnmount() {
+        if (this.webgazer) {
+            console.log('Webgazer closed!');
+            this.webgazer.end();
+        }
+    }
+
+    setupWebpack(webgazer) {
+        // Setup webpack configuration
+        console.log("Setting up webgazer");
+
+        webgazer.setRegression('ridge').setTracker('clmtrackr').begin().showPredictionPoints(true);
+        this.webgazer.setGazeListener(this.handleGaze);
+        console.log("Set webgaze listener");
+    }
+
+    render() {
+        let style = {
+            'height': '50px',
+            'width': '50px',
+            'display': this.props.visibility ? 'initial' : 'none',
+            'position': 'fixed',
+            'borderRadius': '50%',
+            'border': '5px solid ' + (this.props.clicked ? '#b042f4' : '#42f477'),
+            'top': this.state.y - 25,
+            'left': this.state.x - 25,
+            'zIndex': '999',
+            'transition': 'top 100ms ease-in-out, left 100ms ease-in-out, border 300ms ease-out'
+        };
+        return <div style={style}/>;
+    }
 }
 
 export default Cursor;
