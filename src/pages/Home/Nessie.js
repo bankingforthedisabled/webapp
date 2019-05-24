@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 const account_number = "5ce3fb8c322fa06b67794db6";
-const api_key = "7e9e0606ab9d8df00f3622753349bc63";
+const api_key = process.env.REACT_APP_NESSIE_KEY;
 const customer_id = "5ce3fb8b322fa06b67794db1";
 
 class Nessie extends Component {
